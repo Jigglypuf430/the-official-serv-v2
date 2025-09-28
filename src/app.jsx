@@ -1,4 +1,3 @@
-jsx
 import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, MoreVertical, CheckCircle, Info } from "lucide-react";
 import * as THREE from "three";
