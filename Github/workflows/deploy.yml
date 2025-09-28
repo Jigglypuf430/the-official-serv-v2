@@ -1,36 +1,36 @@
 name: Deploy to GitHub Pages
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
 
-permissions:
-  contents: write
+
+on:
+push:
+branches:
+- main
+
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+build:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v3
+- uses: actions/setup-node@v3
+with:
+node-version: 20
+- run: npm install
+- run: npm run build
+- uses: actions/upload-pages-artifact@v2
+with:
+path: dist
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
 
-      - name: Install deps
-        run: npm ci
-
-      - name: Build
-        env:
-          # Vite reads this in your code via import.meta.env.BASE_URL
-          # but we also set base in vite.config.js; this is just for reference
-          VITE_BASE: /THE-OFFICIAL-SERV-V2/
-        run: npm run build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+deploy:
+needs: build
+runs-on: ubuntu-latest
+permissions:
+pages: write
+id-token: write
+environment:
+name: github-pages
+url: ${{ steps.deployment.outputs.page_url }}
+steps:
+- id: deployment
+uses: actions/deploy-pages@v2
