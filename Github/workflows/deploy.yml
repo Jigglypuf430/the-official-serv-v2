@@ -26,7 +26,7 @@ jobs:
         env:
           # Vite reads this in your code via import.meta.env.BASE_URL
           # but we also set base in vite.config.js; this is just for reference
-          VITE_BASE: /THE-OFFICIAL-SERV/
+          VITE_BASE: /THE-OFFICIAL-SERV-V2/
         run: npm run build
 
       - name: Deploy
