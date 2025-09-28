@@ -1,0 +1,4 @@
+/* Minimal reset; add Tailwind here if you plan to use it */
+:root { color-scheme: light dark; }
+html, body { margin: 0; padding: 0; min-height: 100%; }
+body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; }
