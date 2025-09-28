@@ -211,17 +211,17 @@ function DigitalLicence() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans">
+    <div className="min-h-screen bg-gray-100 font-sans flex items-center justify-center py-10">
       <style>{`
         body { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; }
-        .iphone-11{ width: 414px; height: 896px; border-radius: 36px; overflow: hidden; background: transparent; position: relative; }
+        .iphone-11{ width: 414px; height: 896px; border-radius: 36px; overflow: hidden; background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%); position: relative; box-shadow: 0 25px 50px -12px rgba(30, 41, 59, 0.45); }
         .licence-overscan{ position: relative; }
         .holo-canvas{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:5; pointer-events:none; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; mix-blend-mode: normal; opacity: 0.6; }
         .specular-overlay{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:6; pointer-events:none; mix-blend-mode: overlay; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 22%, rgba(255,255,255,0.0) 46%); opacity: 0.6; }
         .blue-texture { width: 50%; background-image: repeating-radial-gradient(circle at -30% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px), repeating-radial-gradient(circle at 130% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px); background-color: #e0e8f2; }
       `}</style>
 
-      <div className="iphone-11 mx-auto flex flex-col">
+      <div className="iphone-11 mx-auto flex flex-col border border-gray-200">
         <header className="bg-transparent">
           <div className="flex items-center justify-between px-4 py-3">
             <ChevronLeft size={24} className="text-blue-500" />
@@ -315,18 +315,18 @@ function DigitalLicence() {
 
 export default function PreviewApp() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-slate-100 flex items-center justify-center p-6">
+    <main className="min-h-screen bg-slate-100 text-slate-900 flex items-center justify-center p-6">
       <div className="w-full max-w-5xl">
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold tracking-tight">React Live Preview</h1>
-          <div className="inline-flex items-center gap-2 text-sm text-slate-300">
+          <div className="inline-flex items-center gap-2 text-sm text-slate-500">
             <Info size={16} />
             <span>Paste your component over the placeholder below.</span>
           </div>
         </header>
-        <section className="p-5 rounded-2xl bg-white/5 shadow-xl">
+        <section className="p-5 rounded-2xl bg-white shadow-xl border border-slate-200">
           <h2 className="text-lg font-medium mb-3">Rendered Component</h2>
-          <div className="flex items-center justify-center p-6">
+          <div className="flex items-center justify-center p-6 bg-slate-50 rounded-xl">
             <DigitalLicence />
           </div>
         </section>
