@@ -47,19 +47,17 @@ body {
 
 /* put canvas over the white card but under the content */
 .holo-canvas{
-  position:absolute; inset:0; pointer-events:none;
-  z-index: 0;
-  -webkit-mask-image:url("ribbons-mask.svg");
-  mask-image:url("ribbons-mask.svg");
-  -webkit-mask-size:cover; mask-size:cover;
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  -webkit-mask-image: var(--holoMask);
+  mask-image: var(--holoMask);
+  -webkit-mask-size:contain; mask-size:contain;
   -webkit-mask-position:center; mask-position:center;
   -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-  mix-blend-mode: normal;
-  opacity: .60;
+  mix-blend-mode: soft-light;
+  opacity: .62;
 }
 .specular-overlay{
-  position:absolute; inset:0; pointer-events:none;
-  z-index: 1;
+  position:absolute; inset:0; pointer-events:none; z-index:1;
   mix-blend-mode: overlay;
   background: radial-gradient(circle at 50% 50%,
     rgba(255,255,255,.95) 0%,

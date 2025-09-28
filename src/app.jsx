@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
+const BASE = import.meta.env.BASE_URL || "/";
+const HOLO_MASK = `${BASE}waratah-mask.svg`;
+
 export const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 export function mapTiltToTarget(gamma, beta, sensitivity = 1.6) {
   const x = clamp(50 + (gamma / 90) * 50 * sensitivity, 10, 90);
@@ -237,6 +240,7 @@ export default function PreviewApp() {
         <div className="lic-card">
           <div
             className="holo-wrap"
+            style={{ "--holoMask": `url(${HOLO_MASK})` }}
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
