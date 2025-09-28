@@ -7,13 +7,10 @@ html
 <meta name="theme-color" content="#0b1220" />
 
 
+<!-- iOS PWA chrome -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Licence" />
-
-
-<link rel="manifest" href="/manifest.webmanifest" />
-<link rel="apple-touch-icon" href="/icons/icon-192.png" />
 
 
 <title>Digital Licence Preview</title>
@@ -24,6 +21,7 @@ html, body { margin: 0; height: 100%; background: #0b1220; }
 </head>
 <body>
 <div id="root"></div>
+<!-- IMPORTANT: do NOT prefix with repo name; Vite will rewrite using base -->
 <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
