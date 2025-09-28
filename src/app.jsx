@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CheckCircle, Info } from "lucide-react";
+import { ChevronLeft, MoreVertical, CheckCircle, Info } from "lucide-react";
 import * as THREE from "three";
 
 export const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -76,7 +76,8 @@ function DigitalLicence() {
     if (threeRef.current) threeRef.current.renderOnce();
 
     if (specularRef.current) {
-      const x = currentPos.current.x; const y = currentPos.current.y;
+      const x = currentPos.current.x;
+      const y = currentPos.current.y;
       specularRef.current.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.6) 22%, rgba(255,255,255,0.0) 46%)`;
     }
 
@@ -189,7 +190,11 @@ function DigitalLicence() {
     const RZ = window.ResizeObserver;
     if (RZ) {
       roRef.current = new RZ(() => setSize());
-      const r = roRef.current; const el = containerRef.current; if (r && el) { r.observe(el); }
+      const r = roRef.current;
+      const el = containerRef.current;
+      if (r && el) {
+        r.observe(el);
+      }
     }
 
     const renderOnce = () => {
@@ -202,139 +207,121 @@ function DigitalLicence() {
 
     return () => {
       window.removeEventListener("resize", setSize);
-      const r = roRef.current; const el = containerRef.current;
-      if (r && el) { try { r.unobserve(el); } catch(_){} }
-      if (r) { try { r.disconnect(); } catch(_){} }
+      const r = roRef.current;
+      const el = containerRef.current;
+      if (r && el) {
+        try {
+          r.unobserve(el);
+        } catch (_) {}
+      }
+      if (r) {
+        try {
+          r.disconnect();
+        } catch (_) {}
+      }
       renderer.dispose();
       threeRef.current = null;
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-200 font-sans flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gray-100 font-sans">
       <style>{`
-        body { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; background: #e5e7eb; }
-        .licence-stage { width: min(960px, 100%); display: flex; justify-content: center; }
-        .licence-card { position: relative; width: min(780px, 100%); min-height: 420px; border-radius: 0px; overflow: hidden; background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(226,232,240,0.9) 50%, rgba(226,232,240,0.85) 100%); border: 1px solid rgba(148, 163, 184, 0.35); box-shadow: 0 40px 90px rgba(15, 23, 42, 0.18), 0 10px 30px rgba(30, 41, 59, 0.18); }
-        .holo-canvas { position:absolute; inset:-10%; width:120%; height:120%; pointer-events:none; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; opacity:0.65; mix-blend-mode:soft-light; filter:saturate(1.1); }
-        .specular-overlay { position:absolute; inset:-10%; width:120%; height:120%; pointer-events:none; mix-blend-mode:screen; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.35) 28%, rgba(255,255,255,0) 60%); opacity:0.55; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
-        .card-grid { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:2.5rem; align-items:start; }
-        .card-meta { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.75rem; }
-        .info-pair { display:flex; flex-direction:column; gap:0.35rem; }
-        @media (max-width: 960px) {
-          .licence-card { width: 100%; }
-        }
-        @media (max-width: 768px) {
-          .card-grid { grid-template-columns: minmax(0,1fr); gap: 2rem; }
-          .licence-card { min-height: auto; }
-        }
-        @media (max-width: 600px) {
-          .card-meta { grid-template-columns: minmax(0,1fr); gap: 1.25rem; }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+        .iphone-11{ width: 414px; height: 896px; border-radius: 36px; overflow: hidden; background: transparent; position: relative; }
+        .licence-overscan{ position: relative; }
+        .holo-canvas{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:5; pointer-events:none; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; mix-blend-mode: normal; opacity: 0.6; }
+        .specular-overlay{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:6; pointer-events:none; mix-blend-mode: overlay; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 22%, rgba(255,255,255,0.0) 46%); opacity: 0.6; }
+        .blue-texture { width: 50%; background-image: repeating-radial-gradient(circle at -30% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px), repeating-radial-gradient(circle at 130% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px); background-color: #e0e8f2; }
       `}</style>
 
-      <div className="licence-stage">
-        <div
-          className="licence-card"
-          ref={containerRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          onClick={isTouchDevice ? enableTilt : undefined}
-        >
-          <canvas ref={canvasRef} className="holo-canvas" />
-          <div ref={specularRef} className="specular-overlay" aria-hidden />
+      <div className="iphone-11 mx-auto flex flex-col">
+        <header className="bg-transparent">
+          <div className="flex items-center justify-between px-4 py-3">
+            <ChevronLeft size={24} className="text-blue-500" />
+            <h1 className="text-md font-semibold text-gray-800">NSW Driver Licence</h1>
+            <MoreVertical size={24} className="text-gray-400" />
+          </div>
+          <div className="h-1 bg-yellow-300"></div>
+        </header>
 
-          <div className="relative z-30 p-8 sm:p-10 space-y-6">
-            <div className="flex flex-wrap items-start justify-between gap-6">
-              <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-amber-500">Driver Licence</p>
-                <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">New South Wales</p>
-              </div>
-              <div className="flex items-center gap-6">
-                <img
-                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/95e347781_nsw-logo.png"
-                  alt="NSW Government"
-                  className="h-12 w-auto"
-                />
-                <div className="flex items-center gap-2 text-sm font-semibold text-emerald-600">
-                  <CheckCircle size={18} className="text-emerald-500 fill-white drop-shadow-sm" />
-                  <span>Verified</span>
+        <main className="relative flex-1 w-full">
+          <div
+            className="licence-overscan"
+            ref={containerRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={isTouchDevice ? enableTilt : undefined}
+          >
+            <canvas ref={canvasRef} className="holo-canvas" />
+            <div ref={specularRef} className="specular-overlay" aria-hidden />
+
+            <div className="relative z-30 px-4 pt-2 pb-6">
+              <section className="relative flex justify-between items-start h-24">
+                <div className="w-16 h-8 bg-contain bg-no-repeat" style={{ backgroundImage: "url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/95e347781_nsw-logo.png')" }}></div>
+                <div className="absolute left-1/2 -translate-x-1/2 -top-1">
+                  <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/7b58ec064_trevor-long.png" alt="Portrait" className="w-24 h-auto rounded-lg shadow-md" />
+                  <CheckCircle size={20} className="absolute -bottom-2 -right-2 bg-white rounded-full text-green-500 fill-white" />
                 </div>
-              </div>
-            </div>
-
-            <div className="h-[3px] w-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500" />
-
-            <div className="card-grid">
-              <div className="space-y-6">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Licence Holder</p>
-                  <p className="mt-2 text-4xl font-semibold text-slate-900 leading-tight">
-                    Trevor William
-                    <span className="block text-blue-900 font-extrabold tracking-[0.32em] mt-2">LONG</span>
-                  </p>
-                </div>
-
-                <div className="card-meta">
-                  <div className="info-pair">
-                    <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">Licence No.</p>
-                    <p className="text-lg font-mono tracking-[0.4em] text-slate-800" style={{ filter: "blur(3px)" }}>1234 5678</p>
-                  </div>
-                  <div className="info-pair">
-                    <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">Expiry</p>
-                    <p className="text-lg font-bold text-slate-900">13 Jul 2021</p>
-                  </div>
-                  <div className="info-pair">
-                    <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">Date of Birth</p>
-                    <p className="text-lg font-bold text-slate-900">14 Dec</p>
-                  </div>
-                  <div className="info-pair">
-                    <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500 flex items-center gap-1">Class <Info size={14} className="text-slate-400" /></p>
-                    <p className="text-lg font-bold text-slate-900">C</p>
-                  </div>
-                </div>
-
-                <div className="info-pair">
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">Address</p>
-                  <p className="text-base font-semibold text-slate-800" style={{ filter: "blur(3px)" }}>
-                    123 Fake Street, SYDNEY NSW 2000
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-end gap-6">
-                <div className="relative w-36 sm:w-40 md:w-44 aspect-[3/4] border-4 border-white shadow-[0_20px_40px_rgba(15,23,42,0.2)]">
-                  <img
-                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/7b58ec064_trevor-long.png"
-                    alt="Licence portrait"
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                  <CheckCircle size={26} className="absolute -bottom-3 -right-3 text-emerald-500 bg-white rounded-full shadow-md p-1" />
-                </div>
-
-                <div className="w-full bg-white/85 border border-slate-200 shadow-inner p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 mb-3">QR Verification</p>
-                  <div className="flex justify-center">
-                    <img
-                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/bd3f21820_qr-code.png"
-                      alt="QR Code"
-                      className="h-28 w-28 object-contain"
-                    />
-                  </div>
-                </div>
-
-                <div className="self-stretch text-right text-xs text-slate-500 space-y-1">
-                  <p>Refreshed 19 Jun 2019</p>
+                <div className="text-right text-xs text-gray-500">
+                  <p>Refreshed</p>
+                  <p>19 Jun 2019</p>
                   <p>06:34am</p>
                 </div>
-              </div>
+              </section>
+
+              <section className="text-center mt-4 mb-5">
+                <h2 className="text-2xl font-semibold text-blue-900">Trevor William <span className="font-bold">LONG</span></h2>
+              </section>
+
+              <section className="relative rounded-lg overflow-hidden p-3">
+                <div className="relative z-10 flex justify-between">
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-xs font-bold text-gray-500">LICENCE NUMBER</p>
+                      <p className="text-sm font-mono tracking-wider" style={{ filter: "blur(3px)" }}>1234 5678</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-gray-500">EXPIRY</p>
+                      <p className="text-lg font-bold text-blue-900">13 Jul 2021</p>
+                    </div>
+                  </div>
+                  <div className="flex w-2/5 border-l-2 border-dashed border-gray-400/50 ml-2">
+                    <div className="blue-texture w-1/2"></div>
+                    <div className="w-1/2 bg-white p-1">
+                      <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/bd3f21820_qr-code.png" alt="QR Code" className="w-full h-full" />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="mt-4 space-y-4 text-sm">
+                <div>
+                  <p className="text-xs font-bold text-gray-500">DATE OF BIRTH</p>
+                  <p className="text-lg font-bold text-blue-900">14 Dec</p>
+                </div>
+                <div className="flex items-center bg-gray-100 p-3 rounded-lg">
+                  <div className="w-1/2">
+                    <p className="text-xs font-bold text-gray-500 flex items-center">CLASS <Info size={14} className="ml-1 text-gray-400" /></p>
+                    <p className="text-lg font-bold text-blue-900">C</p>
+                  </div>
+                  <div className="w-1/2">
+                    <p className="text-xs font-bold text-gray-500">CONDITIONS</p>
+                    <p className="text-lg font-bold text-blue-900">None</p>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-gray-500">ADDRESS</p>
+                  <p className="text-blue-900" style={{ filter: "blur(3px)" }}>123 Fake Street, SYDNEY NSW 2000</p>
+                </div>
+              </section>
             </div>
           </div>
-        </div>
+        </main>
       </div>
 
       {isTouchDevice && showHint && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm opacity-90 z-50 shadow-lg">Tap card to enable tilt effect</div>
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm opacity-90 z-50 shadow-lg">Tap card to enable tilt effect</div>
       )}
     </div>
   );
@@ -342,8 +329,22 @@ function DigitalLicence() {
 
 export default function PreviewApp() {
   return (
-    <main className="min-h-screen bg-slate-200 text-slate-900 flex items-center justify-center p-6">
-      <DigitalLicence />
+    <main className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-slate-100 flex items-center justify-center p-6">
+      <div className="w-full max-w-5xl">
+        <header className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold tracking-tight">React Live Preview</h1>
+          <div className="inline-flex items-center gap-2 text-sm text-slate-300">
+            <Info size={16} />
+            <span>Paste your component over the placeholder below.</span>
+          </div>
+        </header>
+        <section className="p-5 rounded-2xl bg-white/5 shadow-xl">
+          <h2 className="text-lg font-medium mb-3">Rendered Component</h2>
+          <div className="flex items-center justify-center p-6">
+            <DigitalLicence />
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
