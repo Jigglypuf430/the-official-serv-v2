@@ -1,61 +1,95 @@
-:root { color-scheme: light; }
 html, body { margin: 0; padding: 0; min-height: 100%; }
 body {
+  background: #eef2f6;  /* light grey app background */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  background: #eef2f6; /* light app backdrop */
 }
 
-/* Card */
-.lic-card {
-  width: min(980px, 92vw);
+/* Desktop shell that centers the phone */
+.phone-stage {
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  padding: 24px;
+}
+
+/* iPhone 11 viewport – EXACT logical size */
+.phone-shell {
+  width: 414px;
+  height: 896px;
   background: #fff;
-  border-radius: 22px;
-  box-shadow:
-    0 40px 70px rgba(16,24,40,0.18),
-    0 12px 24px rgba(16,24,40,0.12);
+  border-radius: 28px;
   overflow: hidden;
+  box-shadow:
+    0 40px 70px rgba(16,24,40,.18),
+    0 12px 24px rgba(16,24,40,.12);
   position: relative;
 }
+
+/* On actual small devices, let it fill the screen and drop the huge shadow/radius */
+@media (max-width: 430px) {
+  .phone-stage { padding: 0; }
+  .phone-shell {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: env(safe-area-inset-top, 0);
+    box-shadow: none;
+  }
+}
+
+/* Card fills the phone shell */
+.lic-card { position: relative; width: 100%; height: 100%; background: #fff; }
 
 /* Header red strip */
 .header-accent { height: 8px; background: #d9534f; }
 
-/* Hologram (ribbons) — behind the text */
-.holo-wrap { position: relative; }
-.holo-canvas {
-  position: absolute; inset: 0;
-  pointer-events: none;
-  /* use the ribbons mask file (white reveals) */
-  -webkit-mask-image: url("/ribbons-mask.svg");
-  mask-image: url("/ribbons-mask.svg");
-  -webkit-mask-size: cover; mask-size: cover;
-  -webkit-mask-position: center; mask-position: center;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  mix-blend-mode: screen;
-  opacity: 0.55; /* subtle behind text */
+/* Hologram ribbons behind content */
+.holo-wrap { position: relative; height: 100%; }
+.holo-canvas{
+  position:absolute; inset:0; pointer-events:none;
+  -webkit-mask-image:url("/ribbons-mask.svg"); mask-image:url("/ribbons-mask.svg");
+  -webkit-mask-size:cover; mask-size:cover;
+  -webkit-mask-position:center; mask-position:center;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  mix-blend-mode:screen; opacity:.50;
 }
-.specular-overlay {
-  position: absolute; inset: 0; pointer-events: none;
-  mix-blend-mode: overlay;
+.specular-overlay{
+  position:absolute; inset:0; pointer-events:none;
+  mix-blend-mode:overlay;
   background: radial-gradient(circle at 50% 50%,
-    rgba(255,255,255,0.95) 0%,
-    rgba(255,255,255,0.55) 22%,
-    rgba(255,255,255,0.0) 46%);
-  opacity: 0.45;
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.55) 22%,
+    rgba(255,255,255,0) 46%);
+  opacity:.40;
 }
 
-/* Typography helpers */
-h1,h2,h3 { margin: 0; }
-.label { font-size: 0.95rem; color: #475467; }
+/* Portrait / QR sizes tuned for 414×896 */
+.portrait { width: 180px; height: 180px; object-fit: cover; border-radius: 6px; }
+.qr { width: 260px; height: 260px; object-fit: contain; }
+
+/* Tighten text sizes for the phone width */
+.name { font-size: 28px; line-height: 1.15; font-weight: 800; color:#101828; }
+.big-num { font-size: 24px; font-weight: 800; color:#101828; }
+.value-lg { font-size: 22px; font-weight: 700; color:#101828; }
+.label { font-size: 14px; color: #475467; }
 .value { color: #101828; }
 
-/* Portrait + QR */
-.portrait { width: 260px; height: 260px; object-fit: cover; border-radius: 4px; }
-.qr { width: 320px; height: 320px; object-fit: contain; }
+/* Grid tweaks so it fits the phone */
+.info-grid {
+  display:grid; grid-template-columns: 1fr 260px; column-gap: 16px; align-items:start;
+}
+.header-grid {
+  display:grid; grid-template-columns: 180px 1fr 160px; align-items:start; column-gap:16px;
+}
 
-/* Responsive stack for small screens */
-@media (max-width: 900px) {
-  .portrait { width: 220px; height: 220px; }
-  .qr { width: 260px; height: 260px; }
+/* Lower info grid */
+.lower-grid {
+  display:grid;
+  grid-template-columns: 1fr 0.9fr 0.9fr;
+  gap: 12px;
+}
+.lower-card {
+  background:#f2f4f7;
+  border-radius: 12px;
+  padding: 12px 14px;
 }

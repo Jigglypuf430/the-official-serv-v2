@@ -219,38 +219,22 @@ export default function PreviewApp() {
     };
   }, []);
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "center",
-        padding: "24px",
-      }}
-    >
-      <div style={{ width: "min(1100px, 96vw)" }}>
-        {/* Top app bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "12px 8px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "22px" }}>‹</span>
-            <h1 style={{ fontWeight: 600, fontSize: "22px", color: "#101828" }}>
+    <div className="phone-stage">
+      <div className="phone-shell">
+        {/* App bar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={{ fontSize: 22 }}>‹</span>
+            <div className="label" style={{ fontSize: 18, color: "#101828", fontWeight: 600 }}>
               Provisional Driver Licence
-            </h1>
+            </div>
           </div>
-          <span style={{ fontSize: "22px" }}>⋮</span>
+          <span style={{ fontSize: 22 }}>⋮</span>
         </div>
+        <div className="header-accent" />
 
+        {/* Card content with holo layers */}
         <div className="lic-card">
-          <div className="header-accent" />
-
-          {/* Hologram layers behind content */}
           <div
             className="holo-wrap"
             ref={containerRef}
@@ -261,20 +245,12 @@ export default function PreviewApp() {
             <canvas ref={canvasRef} className="holo-canvas" />
             <div ref={specularRef} className="specular-overlay" aria-hidden />
 
-            {/* Card content */}
-            <div style={{ position: "relative", zIndex: 1, padding: "24px 28px 32px" }}>
-              {/* Header block */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "260px 1fr 280px",
-                  alignItems: "start",
-                  gap: "24px",
-                }}
-              >
+            <div style={{ position: "relative", zIndex: 1, padding: "14px 16px 18px" }}>
+              {/* Header row */}
+              <div className="header-grid">
                 <img
                   className="portrait"
-                  src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=640&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=640&auto=format&fit=crop"
                   alt="Portrait"
                 />
                 <div />
@@ -286,82 +262,51 @@ export default function PreviewApp() {
               </div>
 
               {/* Name */}
-              <h2
-                style={{
-                  fontSize: "42px",
-                  fontWeight: 800,
-                  letterSpacing: "0.3px",
-                  color: "#101828",
-                  margin: "18px 0 8px",
-                }}
-              >
+              <div className="name" style={{ margin: "10px 0 6px" }}>
                 Jordan Benjamin <span style={{ fontWeight: 900 }}>SAUNDERS</span>
-              </h2>
+              </div>
 
               {/* Details + QR */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 340px",
-                  gap: "24px",
-                  alignItems: "start",
-                }}
-              >
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "auto 1fr",
-                    columnGap: "18px",
-                    rowGap: "18px",
-                    alignItems: "center",
-                  }}
-                >
+              <div className="info-grid" style={{ marginTop: 8 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", columnGap: 12, rowGap: 12 }}>
                   <div className="label">Licence number</div>
-                  <div className="value" style={{ fontSize: "36px", fontWeight: 800, letterSpacing: "1px" }}>
-                    24881879
-                  </div>
+                  <div className="big-num">24881879</div>
 
                   <div className="label">Expiry</div>
-                  <div className="value" style={{ fontSize: "32px", fontWeight: 700 }}>05 Aug 2026</div>
+                  <div className="value-lg">05 Aug 2026</div>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <img
                     className="qr"
-                    src="https://upload.wikimedia.org/wikipedia/commons/8/8b/QR_code_for_mobile_English_Wikipedia.svg"
+                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/bd3f21820_qr-code.png"
                     alt="QR Code"
                   />
                 </div>
               </div>
 
               {/* Divider */}
-              <div style={{ height: "1px", background: "#eaecf0", margin: "20px 0" }} />
+              <div style={{ height: 1, background: "#eaecf0", margin: "12px 0" }} />
 
-              {/* DOB / Class / Conditions */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1.2fr 0.9fr 0.9fr",
-                  gap: "18px",
-                }}
-              >
+              {/* Lower facts */}
+              <div className="lower-grid">
                 <div>
                   <div className="label">Date of birth</div>
-                  <div className="value" style={{ fontSize: "28px", fontWeight: 700 }}>05 Apr 2007</div>
+                  <div className="value" style={{ fontSize: 20, fontWeight: 700 }}>05 Apr 2007</div>
                 </div>
-                <div style={{ background: "#f2f4f7", borderRadius: "12px", padding: "14px 16px" }}>
+                <div className="lower-card">
                   <div className="label">Class</div>
-                  <div className="value" style={{ fontSize: "22px", fontWeight: 700 }}>C P1</div>
+                  <div className="value" style={{ fontSize: 18, fontWeight: 700 }}>C P1</div>
                 </div>
-                <div style={{ background: "#f2f4f7", borderRadius: "12px", padding: "14px 16px" }}>
+                <div className="lower-card">
                   <div className="label">Conditions</div>
-                  <div className="value" style={{ fontSize: "22px", fontWeight: 700 }}>A, Y</div>
+                  <div className="value" style={{ fontSize: 18, fontWeight: 700 }}>A, Y</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
