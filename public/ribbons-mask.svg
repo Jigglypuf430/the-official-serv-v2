@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <mask id="ribbonsMask">
+      <rect width="1200" height="800" fill="black"/>
+      <!-- 7 fat, smooth ribbons (white reveals the holo) -->
+      <g fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M-50,400 C200,250 400,300 600,420 800,540 1000,500 1250,360" stroke-width="120"/>
+        <path d="M-80,560 C200,430 420,470 640,580 860,690 1060,660 1280,540" stroke-width="110"/>
+        <path d="M-60,260 C220,140 450,190 690,320 930,450 1130,420 1260,340" stroke-width="100"/>
+        <path d="M-40,690 C180,600 420,630 720,730 980,820 1160,790 1280,720" stroke-width="95"/>
+        <path d="M-30,120 C180,60 420,80 690,170 960,260 1150,240 1280,200" stroke-width="90"/>
+        <path d="M-20,350 C180,260 420,300 720,420 980,520 1170,500 1290,430" stroke-width="85"/>
+        <path d="M-10,490 C220,380 440,410 700,510 960,610 1160,590 1300,520" stroke-width="80"/>
+      </g>
+    </mask>
+  </defs>
+  <rect width="1200" height="800" fill="white" mask="url(#ribbonsMask)"/>
+</svg>
