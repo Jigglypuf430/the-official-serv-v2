@@ -1,6 +1,5 @@
 html, body { margin: 0; padding: 0; min-height: 100%; }
 body {
-  background: #eef2f6;  /* light grey app background */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
@@ -45,23 +44,32 @@ body {
 
 /* Hologram ribbons behind content */
 .holo-wrap { position: relative; height: 100%; }
+
+/* put canvas over the white card but under the content */
 .holo-canvas{
   position:absolute; inset:0; pointer-events:none;
-  -webkit-mask-image:url("/ribbons-mask.svg"); mask-image:url("/ribbons-mask.svg");
+  z-index: 0;
+  -webkit-mask-image:url("ribbons-mask.svg");
+  mask-image:url("ribbons-mask.svg");
   -webkit-mask-size:cover; mask-size:cover;
   -webkit-mask-position:center; mask-position:center;
   -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-  mix-blend-mode:screen; opacity:.50;
+  mix-blend-mode: normal;
+  opacity: .60;
 }
 .specular-overlay{
   position:absolute; inset:0; pointer-events:none;
-  mix-blend-mode:overlay;
+  z-index: 1;
+  mix-blend-mode: overlay;
   background: radial-gradient(circle at 50% 50%,
     rgba(255,255,255,.95) 0%,
     rgba(255,255,255,.55) 22%,
     rgba(255,255,255,0) 46%);
   opacity:.40;
 }
+
+/* ensure the content sits above both layers */
+.holo-content { position: relative; z-index: 2; }
 
 /* Portrait / QR sizes tuned for 414×896 */
 .portrait { width: 180px; height: 180px; object-fit: cover; border-radius: 6px; }

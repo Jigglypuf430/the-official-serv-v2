@@ -245,7 +245,7 @@ export default function PreviewApp() {
             <canvas ref={canvasRef} className="holo-canvas" />
             <div ref={specularRef} className="specular-overlay" aria-hidden />
 
-            <div style={{ position: "relative", zIndex: 1, padding: "14px 16px 18px" }}>
+            <div className="holo-content" style={{ padding: "14px 16px 18px" }}>
               {/* Header row */}
               <div className="header-grid">
                 <img
