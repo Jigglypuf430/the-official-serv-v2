@@ -1,4 +1,4 @@
-const CACHE = "licence-pwa-v2";
+const CACHE = "licence-pwa-v3";
 const FALLBACK_PATH = new URL("index.html", self.registration.scope).pathname;
 
 self.addEventListener("install", (event) => {

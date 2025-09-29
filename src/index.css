@@ -122,8 +122,9 @@ body {
   height: 120%;
   pointer-events: none;
   z-index: 0;
-  mix-blend-mode: overlay;
-  opacity: 0.82;
+  mix-blend-mode: screen;
+  opacity: 0.88;
+  filter: saturate(145%) contrast(115%);
   -webkit-mask-image: var(--holoMask);
   mask-image: var(--holoMask);
   -webkit-mask-size: cover;
@@ -141,7 +142,7 @@ body {
   height: 120%;
   pointer-events: none;
   z-index: 1;
-  mix-blend-mode: overlay;
+  mix-blend-mode: color-dodge;
   -webkit-mask-image: var(--holoMask);
   mask-image: var(--holoMask);
   -webkit-mask-size: cover;
@@ -150,7 +151,7 @@ body {
   mask-position: center;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  opacity: 0.82;
+  opacity: 0.9;
 }
 
 .holo-content {

@@ -81,7 +81,10 @@ function DigitalLicence() {
     if (specularRef.current) {
       const x = currentPos.current.x;
       const y = currentPos.current.y;
-      specularRef.current.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.6) 22%, rgba(255,255,255,0.0) 46%)`;
+      specularRef.current.style.background = [
+        `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.0) 46%)`,
+        `radial-gradient(circle at ${x}% ${y}%, rgba(96,165,250,0.4) 0%, rgba(14,165,233,0.25) 18%, rgba(14,116,144,0.0) 52%)`,
+      ].join(", ");
     }
 
     if (

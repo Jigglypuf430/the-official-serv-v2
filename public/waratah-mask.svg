@@ -1,0 +1,34 @@
+<svg width="414" height="896" viewBox="0 0 414 896" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cardGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(207 420) rotate(90) scale(420 207)">
+      <stop offset="0%" stop-color="white" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="white" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="white" stop-opacity="0.4" />
+    </radialGradient>
+    <radialGradient id="petalFade" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(207 384) rotate(90) scale(220 180)">
+      <stop offset="0%" stop-color="white" stop-opacity="0.95" />
+      <stop offset="75%" stop-color="white" stop-opacity="0.65" />
+      <stop offset="100%" stop-color="white" stop-opacity="0.15" />
+    </radialGradient>
+    <linearGradient id="stem" x1="207" y1="520" x2="207" y2="730" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="white" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="white" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+  <rect width="414" height="896" fill="black" />
+  <rect x="24" y="36" width="366" height="824" rx="28" fill="url(#cardGlow)" />
+  <g transform="translate(207 396)">
+    <g fill="white" fill-opacity="0.82">
+      <path d="M0-146C29-146 52-124 52-95C52-84 49-73 43-64C57-76 69-90 79-105C92-125 103-146 115-168C134-132 142-90 130-52C115-2 74 28 26 34C45 45 60 63 66 87C76 126 59 167 27 189C60 185 91 170 117 146C160 108 188 54 195-4C201-58 183-114 144-154C115-184 73-201 30-202C-13-203-54-188-84-160C-123-124-143-73-140-22C-138 19-123 60-97 94C-70 130-32 158 10 170C-17 150-31 115-24 81C-18 55-2 33 21 21C-27 18-70-9-89-53C-101-83-101-120-87-149C-70-185-35-206 0-206C0-206 0-146 0-146Z" />
+    </g>
+    <g fill="white" fill-opacity="0.55">
+      <path d="M0-120C16-120 30-108 30-92C30-80 21-70 10-66C30-60 46-45 52-24C60 4 43 32 18 42C34 42 50 36 63 26C90 5 105-30 100-65C95-101 68-129 33-135C-2-140-35-125-51-98C-69-69-63-31-38-7C-22 8-1 15 20 14C3 24-17 26-34 19C-61 8-78-18-78-47C-78-78-57-106-27-115C-18-118-9-120 0-120Z" />
+      <path d="M-66-24C-50-24-36-12-36 4C-36 20-50 32-66 32C-82 32-96 20-96 4C-96-12-82-24-66-24Z" />
+      <path d="M66-24C82-24 96-12 96 4C96 20 82 32 66 32C50 32 36 20 36 4C36-12 50-24 66-24Z" />
+    </g>
+    <g fill="url(#petalFade)">
+      <path d="M0-182C52-182 96-146 105-95C114-42 86 6 41 22C64 24 84 38 95 58C110 84 106 118 86 140C60 169 18 176-16 156C-51 135-71 94-63 54C-58 28-41 7-18-3C-62-9-94-47-98-92C-103-142-68-187-17-196C-11-197-6-198 0-198C0-198 0-182 0-182Z" />
+    </g>
+    <path d="M-18 520C-18 520-8 438 0 386C8 438 18 520 18 520C18 536 10 550 0 550C-10 550-18 536-18 520Z" fill="url(#stem)" />
+  </g>
+</svg>
