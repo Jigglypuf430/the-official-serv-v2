@@ -1,7 +1,9 @@
-jsx
 import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, MoreVertical, CheckCircle, Info } from "lucide-react";
 import * as THREE from "three";
+
+const BASE = import.meta.env.BASE_URL || "/";
+const HOLO_MASK = `${BASE}waratah-mask.svg`;
 
 export const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 export function mapTiltToTarget(gamma, beta, sensitivity = 1.6) {
@@ -77,7 +79,8 @@ function DigitalLicence() {
     if (threeRef.current) threeRef.current.renderOnce();
 
     if (specularRef.current) {
-      const x = currentPos.current.x; const y = currentPos.current.y;
+      const x = currentPos.current.x;
+      const y = currentPos.current.y;
       specularRef.current.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.6) 22%, rgba(255,255,255,0.0) 46%)`;
     }
 
@@ -90,6 +93,7 @@ function DigitalLicence() {
       isAnimating.current = false;
     }
   };
+
   const startAnimation = () => {
     if (!isAnimating.current) {
       isAnimating.current = true;
@@ -190,7 +194,11 @@ function DigitalLicence() {
     const RZ = window.ResizeObserver;
     if (RZ) {
       roRef.current = new RZ(() => setSize());
-      const r = roRef.current; const el = containerRef.current; if (r && el) { r.observe(el); }
+      const r = roRef.current;
+      const el = containerRef.current;
+      if (r && el) {
+        r.observe(el);
+      }
     }
 
     const renderOnce = () => {
@@ -203,113 +211,120 @@ function DigitalLicence() {
 
     return () => {
       window.removeEventListener("resize", setSize);
-      const r = roRef.current; const el = containerRef.current;
-      if (r && el) { try { r.unobserve(el); } catch(_){} }
-      if (r) { try { r.disconnect(); } catch(_){} }
+      const r = roRef.current;
+      const el = containerRef.current;
+      if (r && el) {
+        try {
+          r.unobserve(el);
+        } catch (_) {}
+      }
+      if (r) {
+        try {
+          r.disconnect();
+        } catch (_) {}
+      }
       renderer.dispose();
       threeRef.current = null;
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans">
-      <style>{`
-        body { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; }
-        .iphone-11{ width: 414px; height: 896px; border-radius: 36px; overflow: hidden; background: transparent; position: relative; }
-        .licence-overscan{ position: relative; }
-        .holo-canvas{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:5; pointer-events:none; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; mix-blend-mode: normal; opacity: 0.6; }
-        .specular-overlay{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:6; pointer-events:none; mix-blend-mode: overlay; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 22%, rgba(255,255,255,0.0) 46%); opacity: 0.6; }
-        .blue-texture { width: 50%; background-image: repeating-radial-gradient(circle at -30% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px), repeating-radial-gradient(circle at 130% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px); background-color: #e0e8f2; }
-      `}</style>
+    <div className="stage font-sans">
+      <div className="phone-shell">
+        <div className="phone-screen">
+          <header className="licence-header">
+            <button className="nav-button" type="button" aria-label="Back">
+              <ChevronLeft size={24} />
+            </button>
+            <h1>NSW Driver Licence</h1>
+            <button className="nav-button" type="button" aria-label="More options">
+              <MoreVertical size={24} />
+            </button>
+          </header>
 
-      <div className="iphone-11 mx-auto flex flex-col">
-        <header className="bg-transparent">
-          <div className="flex items-center justify-between px-4 py-3">
-            <ChevronLeft size={24} className="text-blue-500" />
-            <h1 className="text-md font-semibold text-gray-800">NSW Driver Licence</h1>
-            <MoreVertical size={24} className="text-gray-400" />
-          </div>
-          <div className="h-1 bg-yellow-300"></div>
-        </header>
+          <main className="licence-main">
+            <div
+              className="licence-card holo-wrap"
+              ref={containerRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              onClick={isTouchDevice ? enableTilt : undefined}
+              style={{ "--holoMask": `url(${HOLO_MASK})` }}
+            >
+              <canvas ref={canvasRef} className="holo-canvas" />
+              <div ref={specularRef} className="specular-overlay" aria-hidden />
 
-        <main className="relative flex-1 w-full">
-          <div
-            className="licence-overscan"
-            ref={containerRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={isTouchDevice ? enableTilt : undefined}
-          >
-            <canvas ref={canvasRef} className="holo-canvas" />
-            <div ref={specularRef} className="specular-overlay" aria-hidden />
+              <div className="holo-content">
+                <section className="licence-top">
+                  <div className="nsw-logo" role="img" aria-label="NSW Government logo" />
+                  <div className="portrait">
+                    <img
+                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/7b58ec064_trevor-long.png"
+                      alt="Portrait"
+                    />
+                    <CheckCircle size={20} className="status-icon" />
+                  </div>
+                  <div className="licence-timestamp">
+                    <p>Refreshed</p>
+                    <p>19 Jun 2019</p>
+                    <p>06:34am</p>
+                  </div>
+                </section>
 
-            <div className="relative z-30 px-4 pt-2 pb-6">
-              <section className="relative flex justify-between items-start h-24">
-                <div className="w-16 h-8 bg-contain bg-no-repeat" style={{ backgroundImage: "url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/95e347781_nsw-logo.png')" }}></div>
-                <div className="absolute left-1/2 -translate-x-1/2 -top-1">
-                  <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/7b58ec064_trevor-long.png" alt="Portrait" className="w-24 h-auto rounded-lg shadow-md" />
-                  <CheckCircle size={20} className="absolute -bottom-2 -right-2 bg-white rounded-full text-green-500 fill-white" />
-                </div>
-                <div className="text-right text-xs text-gray-500">
-                  <p>Refreshed</p>
-                  <p>19 Jun 2019</p>
-                  <p>06:34am</p>
-                </div>
-              </section>
+                <section className="licence-name">
+                  <h2>
+                    Trevor William <span>LONG</span>
+                  </h2>
+                </section>
 
-              <section className="text-center mt-4 mb-5">
-                <h2 className="text-2xl font-semibold text-blue-900">Trevor William <span className="font-bold">LONG</span></h2>
-              </section>
+                <section className="licence-meta">
+                  <div className="licence-meta-block">
+                    <p className="meta-label">LICENCE NUMBER</p>
+                    <p className="meta-value blurred">1234 5678</p>
+                  </div>
+                  <div className="licence-meta-block">
+                    <p className="meta-label">EXPIRY</p>
+                    <p className="meta-value accent">13 Jul 2021</p>
+                  </div>
+                  <div className="licence-qr">
+                    <div className="qr-texture" aria-hidden />
+                    <img
+                      src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=NSW-licence-demo"
+                      alt="QR Code"
+                    />
+                  </div>
+                </section>
 
-              <section className="relative rounded-lg overflow-hidden p-3">
-                <div className="relative z-10 flex justify-between">
-                  <div className="space-y-3">
+                <section className="licence-details">
+                  <div className="detail-item">
+                    <p className="detail-label">DATE OF BIRTH</p>
+                    <p className="detail-value accent">14 Dec</p>
+                  </div>
+                  <div className="detail-item detail-card">
                     <div>
-                      <p className="text-xs font-bold text-gray-500">LICENCE NUMBER</p>
-                      <p className="text-sm font-mono tracking-wider" style={{ filter: "blur(3px)" }}>1234 5678</p>
+                      <p className="detail-label">CLASS</p>
+                      <p className="detail-value accent info">
+                        C
+                        <Info size={14} />
+                      </p>
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-gray-500">EXPIRY</p>
-                      <p className="text-lg font-bold text-blue-900">13 Jul 2021</p>
+                      <p className="detail-label">CONDITIONS</p>
+                      <p className="detail-value accent">None</p>
                     </div>
                   </div>
-                  <div className="flex w-2/5 border-l-2 border-dashed border-gray-400/50 ml-2">
-                    <div className="blue-texture w-1/2"></div>
-                    <div className="w-1/2 bg-white p-1">
-                      <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/bd3f21820_qr-code.png" alt="QR Code" className="w-full h-full" />
-                    </div>
+                  <div className="detail-item">
+                    <p className="detail-label">ADDRESS</p>
+                    <p className="detail-value blurred">123 Fake Street, SYDNEY NSW 2000</p>
                   </div>
-                </div>
-              </section>
-
-              <section className="mt-4 space-y-4 text-sm">
-                <div>
-                  <p className="text-xs font-bold text-gray-500">DATE OF BIRTH</p>
-                  <p className="text-lg font-bold text-blue-900">14 Dec</p>
-                </div>
-                <div className="flex items-center bg-gray-100 p-3 rounded-lg">
-                  <div className="w-1/2">
-                    <p className="text-xs font-bold text-gray-500 flex items-center">CLASS <Info size={14} className="ml-1 text-gray-400" /></p>
-                    <p className="text-lg font-bold text-blue-900">C</p>
-                  </div>
-                  <div className="w-1/2">
-                    <p className="text-xs font-bold text-gray-500">CONDITIONS</p>
-                    <p className="text-lg font-bold text-blue-900">None</p>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-gray-500">ADDRESS</p>
-                  <p className="text-blue-900" style={{ filter: "blur(3px)" }}>123 Fake Street, SYDNEY NSW 2000</p>
-                </div>
-              </section>
+                </section>
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
 
-      {isTouchDevice && showHint && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm opacity-90 z-50 shadow-lg">Tap card to enable tilt effect</div>
-      )}
+      {isTouchDevice && showHint && <div className="tilt-hint">Tap card to enable tilt effect</div>}
     </div>
   );
 }
