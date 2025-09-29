@@ -1,4 +1,3 @@
-jsx
 import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, MoreVertical, CheckCircle, Info } from "lucide-react";
 import * as THREE from "three";
@@ -54,7 +53,10 @@ function DigitalLicence() {
 
   const enableTilt = async () => {
     setShowHint(false);
-    if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
+    if (
+      typeof DeviceOrientationEvent !== "undefined" &&
+      typeof DeviceOrientationEvent.requestPermission === "function"
+    ) {
       try {
         const response = await DeviceOrientationEvent.requestPermission();
         if (response === "granted") {
@@ -77,7 +79,8 @@ function DigitalLicence() {
     if (threeRef.current) threeRef.current.renderOnce();
 
     if (specularRef.current) {
-      const x = currentPos.current.x; const y = currentPos.current.y;
+      const x = currentPos.current.x;
+      const y = currentPos.current.y;
       specularRef.current.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.6) 22%, rgba(255,255,255,0.0) 46%)`;
     }
 
@@ -97,7 +100,8 @@ function DigitalLicence() {
     }
   };
 
-  const isTouchDevice = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  const isTouchDevice =
+    typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
   useEffect(() => {
     if (!canvasRef.current || threeRef.current) return;
@@ -190,7 +194,11 @@ function DigitalLicence() {
     const RZ = window.ResizeObserver;
     if (RZ) {
       roRef.current = new RZ(() => setSize());
-      const r = roRef.current; const el = containerRef.current; if (r && el) { r.observe(el); }
+      const r = roRef.current;
+      const el = containerRef.current;
+      if (r && el) {
+        r.observe(el);
+      }
     }
 
     const renderOnce = () => {
@@ -203,9 +211,18 @@ function DigitalLicence() {
 
     return () => {
       window.removeEventListener("resize", setSize);
-      const r = roRef.current; const el = containerRef.current;
-      if (r && el) { try { r.unobserve(el); } catch(_){} }
-      if (r) { try { r.disconnect(); } catch(_){} }
+      const r = roRef.current;
+      const el = containerRef.current;
+      if (r && el) {
+        try {
+          r.unobserve(el);
+        } catch (_) {}
+      }
+      if (r) {
+        try {
+          r.disconnect();
+        } catch (_) {}
+      }
       renderer.dispose();
       threeRef.current = null;
     };
@@ -218,7 +235,7 @@ function DigitalLicence() {
         .iphone-11{ width: 414px; height: 896px; border-radius: 36px; overflow: hidden; background: transparent; position: relative; }
         .licence-overscan{ position: relative; }
         .holo-canvas{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:5; pointer-events:none; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; mix-blend-mode: normal; opacity: 0.6; }
-        .specular-overlay{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:6; pointer-events:none; mix-blend-mode: overlay; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 22%, rgba(255,255,255,0.0) 46%); opacity: 0.6; }
+        .specular-overlay{ position:absolute; inset:0; width:120%; height:120%; left:-10%; top:-10%; z-index:6; pointer-events:none; mix-blend-mode: overlay; -webkit-mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); mask-image:url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/49e6df419_warratah.png'); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 22%, rgba(255,255,255,0.0) 46%); opacity: 0.6; }
         .blue-texture { width: 50%; background-image: repeating-radial-gradient(circle at -30% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px), repeating-radial-gradient(circle at 130% 50%, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px,transparent 1px, transparent 12px); background-color: #e0e8f2; }
       `}</style>
 
@@ -245,10 +262,23 @@ function DigitalLicence() {
 
             <div className="relative z-30 px-4 pt-2 pb-6">
               <section className="relative flex justify-between items-start h-24">
-                <div className="w-16 h-8 bg-contain bg-no-repeat" style={{ backgroundImage: "url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/95e347781_nsw-logo.png')" }}></div>
+                <div
+                  className="w-16 h-8 bg-contain bg-no-repeat"
+                  style={{
+                    backgroundImage:
+                      "url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/95e347781_nsw-logo.png')",
+                  }}
+                ></div>
                 <div className="absolute left-1/2 -translate-x-1/2 -top-1">
-                  <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/7b58ec064_trevor-long.png" alt="Portrait" className="w-24 h-auto rounded-lg shadow-md" />
-                  <CheckCircle size={20} className="absolute -bottom-2 -right-2 bg-white rounded-full text-green-500 fill-white" />
+                  <img
+                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/7b58ec064_trevor-long.png"
+                    alt="Portrait"
+                    className="w-24 h-auto rounded-lg shadow-md"
+                  />
+                  <CheckCircle
+                    size={20}
+                    className="absolute -bottom-2 -right-2 bg-white rounded-full text-green-500 fill-white"
+                  />
                 </div>
                 <div className="text-right text-xs text-gray-500">
                   <p>Refreshed</p>
@@ -258,7 +288,9 @@ function DigitalLicence() {
               </section>
 
               <section className="text-center mt-4 mb-5">
-                <h2 className="text-2xl font-semibold text-blue-900">Trevor William <span className="font-bold">LONG</span></h2>
+                <h2 className="text-2xl font-semibold text-blue-900">
+                  Trevor William <span className="font-bold">LONG</span>
+                </h2>
               </section>
 
               <section className="relative rounded-lg overflow-hidden p-3">
@@ -266,7 +298,9 @@ function DigitalLicence() {
                   <div className="space-y-3">
                     <div>
                       <p className="text-xs font-bold text-gray-500">LICENCE NUMBER</p>
-                      <p className="text-sm font-mono tracking-wider" style={{ filter: "blur(3px)" }}>1234 5678</p>
+                      <p className="text-sm font-mono tracking-wider" style={{ filter: "blur(3px)" }}>
+                        1234 5678
+                      </p>
                     </div>
                     <div>
                       <p className="text-xs font-bold text-gray-500">EXPIRY</p>
@@ -276,7 +310,11 @@ function DigitalLicence() {
                   <div className="flex w-2/5 border-l-2 border-dashed border-gray-400/50 ml-2">
                     <div className="blue-texture w-1/2"></div>
                     <div className="w-1/2 bg-white p-1">
-                      <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/bd3f21820_qr-code.png" alt="QR Code" className="w-full h-full" />
+                      <img
+                        src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cfe7e4208081a124aa9e75/bd3f21820_qr-code.png"
+                        alt="QR Code"
+                        className="w-full h-full"
+                      />
                     </div>
                   </div>
                 </div>
@@ -289,7 +327,9 @@ function DigitalLicence() {
                 </div>
                 <div className="flex items-center bg-gray-100 p-3 rounded-lg">
                   <div className="w-1/2">
-                    <p className="text-xs font-bold text-gray-500 flex items-center">CLASS <Info size={14} className="ml-1 text-gray-400" /></p>
+                    <p className="text-xs font-bold text-gray-500 flex items-center">
+                      CLASS <Info size={14} className="ml-1 text-gray-400" />
+                    </p>
                     <p className="text-lg font-bold text-blue-900">C</p>
                   </div>
                   <div className="w-1/2">
@@ -299,7 +339,9 @@ function DigitalLicence() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-gray-500">ADDRESS</p>
-                  <p className="text-blue-900" style={{ filter: "blur(3px)" }}>123 Fake Street, SYDNEY NSW 2000</p>
+                  <p className="text-blue-900" style={{ filter: "blur(3px)" }}>
+                    123 Fake Street, SYDNEY NSW 2000
+                  </p>
                 </div>
               </section>
             </div>
@@ -308,7 +350,9 @@ function DigitalLicence() {
       </div>
 
       {isTouchDevice && showHint && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm opacity-90 z-50 shadow-lg">Tap card to enable tilt effect</div>
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm opacity-90 z-50 shadow-lg">
+          Tap card to enable tilt effect
+        </div>
       )}
     </div>
   );
