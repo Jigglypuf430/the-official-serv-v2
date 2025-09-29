@@ -47,27 +47,39 @@ body {
 
 /* put canvas over the white card but under the content */
 .holo-canvas{
-  position:absolute; inset:0; pointer-events:none; z-index:0;
+  position:absolute; inset:0; pointer-events:none;
+  z-index: 0;
+
+  /* Use the CSS var set on the wrapper – this survives subpaths */
   -webkit-mask-image: var(--holoMask);
   mask-image: var(--holoMask);
-  -webkit-mask-size:contain; mask-size:contain;
-  -webkit-mask-position:center; mask-position:center;
-  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-  mix-blend-mode: soft-light;
-  opacity: .62;
+
+  /* Make the mask FILL the card – 'contain' was leaving lots of blank space */
+  -webkit-mask-size: cover;  /* was contain */
+  mask-size: cover;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  /* Make it visible on white: 'overlay' reads well; bump visibility slightly */
+  mix-blend-mode: overlay;      /* try 'normal' if you want zero color mixing */
+  opacity: .82;                 /* 0.7–0.9 is the sweet spot */
+  filter: saturate(1.15) brightness(1.05);
 }
 .specular-overlay{
-  position:absolute; inset:0; pointer-events:none; z-index:1;
+  position:absolute; inset:0; pointer-events:none;
+  z-index: 1;
   mix-blend-mode: overlay;
   background: radial-gradient(circle at 50% 50%,
     rgba(255,255,255,.95) 0%,
     rgba(255,255,255,.55) 22%,
     rgba(255,255,255,0) 46%);
-  opacity:.40;
+  opacity:.38;
 }
 
 /* ensure the content sits above both layers */
-.holo-content { position: relative; z-index: 2; }
+.holo-content{ position:relative; z-index:2; }
 
 /* Portrait / QR sizes tuned for 414×896 */
 .portrait { width: 180px; height: 180px; object-fit: cover; border-radius: 6px; }
